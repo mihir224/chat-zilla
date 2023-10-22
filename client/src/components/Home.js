@@ -1,8 +1,7 @@
 import React,{useState} from 'react';
 import {Link} from 'react-router-dom';
 
-function Home(){
-    const [userName,setUserName]=useState(" ");
+function Home({userName,setUserName}){
     return (
         <div>
         <form>
