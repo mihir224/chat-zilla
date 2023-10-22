@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
     <div className="App">
     <div id='navbar'>
-    <h1>Chat Space</h1>
+    <h1>ChatZilla</h1>
     </div>
     <div id='app-body'>
     <Routes>
