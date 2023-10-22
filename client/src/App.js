@@ -8,7 +8,9 @@ function App() {
   return (
     <BrowserRouter>
     <div className="App">
+    <div id='navbar'>
     <h1>Chat Space</h1>
+    </div>
     <div id='app-body'>
     <Routes>
       <Route path='/' element={<Home />}/>
