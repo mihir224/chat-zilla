@@ -25,7 +25,7 @@ function Chat({userName}) {
       alert('message is empty');
       return;
     }
-    socket.emit("chat",{message:message,userName:userName}); //send payload to socket-server through chat event
+    socket.emit("chat",{message:message,userName:userName,time:moment().format('h:mm:ss a')}); //send payload to socket-server through chat event
     setMessage("");
   }
   return (
@@ -34,14 +34,18 @@ function Chat({userName}) {
       <h3>Group Chat</h3>
     </div>
     <div id='chat-div' ref={chatRef}>
-    {chat.length===0?(<h1 id='blank-txt'>Start a convo</h1>):
+    {chat.length===0?(<h1 id='blank-txt'>Start a convo  <span>(currently texting as {userName})</span></h1>):
       (
         <>
        <div id='date'><span>{moment().format('MMMM Do YYYY')}</span></div>
         {chat.map((payload,index)=>(
-            <div key= {index} className={payload.userName===userName?'sender':'receiver'} style={{marginBottom:index===chat.length-1?'12px':' ',marginTop:index===0&&'0'}}> 
+          <div className='txt' style={{display:'flex',justifyContent:payload.userName===userName?'flex-end':'flex-start'}} >
+          <div className='un' style={{display:payload.userName===userName?'none':'content'}}>{payload.userName} </div>
+            <div key= {index} className={payload.userName===userName?'sender':'receiver'} style={{marginTop:index===0&&'0'}}> 
             <p className='msg-txt' >{payload.message}</p>
             </div>
+            <div className='un' style={{display:payload.userName===userName?'content':'none'}}>{payload.userName}</div>
+          </div>
         ))}
         </>
       )

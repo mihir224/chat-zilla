@@ -14,8 +14,10 @@
     border:none;
 }
 #chat-header>h3{
-    padding:0;
+    padding:20px 0;
     color:#282c34;
+    font-size: 22px;
+    margin:0;
 }
 #chat-div{
     background-color: white;
@@ -38,9 +40,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
-
+#blank-txt>span{
+    font-size: 15px;
+}
 #date{
     text-align: center;
     border-bottom: 1px solid #282c3467;
@@ -51,36 +56,39 @@
 #date>span{
     background:white ;
     padding:0 5px; 
-    color:#282c34b7;
-    font-weight: 500;
+    color:#282c34be;
+    font-weight: 600;
     font-size: 14px;
-
 }
+
 .receiver{
     background-color: rgba(128, 128, 128, 0.864);
-    max-width:62%;
-    align-self: flex-start;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
-    margin-left: 5px;
-    margin-top: 3px;
+    margin-left: 2px;
+
 }
 .sender{
     background-color: #007AFF;
-    align-self: flex-end;
     max-width:62%;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom-left-radius: 12px;
-    margin-right: 5px;
-    margin-top: 3px;
+    margin-right: 2px;
 }
 .msg-txt{
     padding:6px 10px;
     margin:0;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
+}
+.un{
+    color: #282c34de;
+    font-size: 12px;
+    font-weight: 600;
+    align-self: flex-end;
+    padding: 0 2px;
 }
 #input{
     width:100%;
@@ -103,6 +111,7 @@
     font-family: inherit;
     font-weight: 600;
     font-size: 14px;
+    color:#282c34
 }
 #msg-ip::placeholder{
     font-style: italic;
@@ -120,4 +129,10 @@
     margin:0;
     border:none;
     background-color: white;
+    opacity:0.6;
+}
+
+
+#chat-form>button:hover{
+    opacity: 1;
 }
