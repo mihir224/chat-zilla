@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
     <div className="App">
     <div id='navbar'>
-    <h1>ChatZilla</h1>
+    <Link to='/' style={{textDecoration:'none',color:'white'}}><h1>ChatZilla</h1></Link>
     </div>
     <div id='app-body'>
     <Routes>

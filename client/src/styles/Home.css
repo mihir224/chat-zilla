@@ -9,7 +9,7 @@
 #un-form{
     display: flex;
     align-items: center;
-    gap:10px;
+    gap:20px;
     padding:5px;
 }
 #un-submit{
@@ -36,10 +36,16 @@
     border:none;
     border-radius: 12px;
     background-color: white;
+   
 }
 #username-ip::placeholder{
     font-style: italic;
 }
 #username-ip:focus{
     outline: none;
+}
+@media screen and (max-width:400px) {
+    #un-form{
+        flex-direction: column;
+    }
 }
