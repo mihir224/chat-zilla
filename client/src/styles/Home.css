@@ -41,6 +41,7 @@
     color: white;
     text-align: center;
     transition-duration: 0.2s;
+
 }
 #username-ip:hover{
     background-color: white;
