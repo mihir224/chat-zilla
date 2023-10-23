@@ -9,7 +9,7 @@ dotenv.config();
 const server=createServer(app);
 const io=new Server(server,{
     cors:{
-        origin:['http://localhost:3000','https://chatzilla.netlify.app']
+        origin:['http://localhost:3000','https://chat-zilla.netlify.app']
     }
 });
 
