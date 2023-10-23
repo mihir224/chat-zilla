@@ -14,7 +14,7 @@ function App() {
     </div>
     <div id='app-body'>
     <Routes>
-      <Route path='/' element={<Home setUserName={setUserName}/>}/>
+      <Route path='/' element={<Home userName={userName} setUserName={setUserName}/>}/>
       <Route path='/chat' element={<Chat userName={userName}/>}/>
     </Routes>
     </div>

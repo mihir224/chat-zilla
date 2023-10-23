@@ -13,11 +13,11 @@ function Home({userName,setUserName}){
         <input ref={inputRef} id='username-ip' type='text' placeholder='Enter username...' value={userName} onChange={(e)=>{
             setUserName(e.target.value);
         }}/>
-        <Link to='/chat'>
+        {userName.length!==0&&<Link to='/chat'>
             <button id='un-submit' type='submit' onSubmit={(e)=>{
-                e.preventDefault();
+                e.preventDefault(); 
             }}>Start Chat</button>
-        </Link>
+        </Link>}
         </form>
 
         </div>
