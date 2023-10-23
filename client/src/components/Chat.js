@@ -3,6 +3,7 @@ import '../App.css';
 import '../styles/Chat.css';
 import {useState,useEffect,useRef} from  'react';
 import {io} from 'socket.io-client';
+import moment from 'moment';
 import SendIcon from '@mui/icons-material/Send';
 
 function Chat({userName}) {
@@ -20,6 +21,10 @@ function Chat({userName}) {
   },[chat])
   const handleSubmit=(e)=>{
     e.preventDefault();
+    if(message.length===0){
+      alert('message is empty');
+      return;
+    }
     socket.emit("chat",{message:message,userName:userName}); //send payload to socket-server through chat event
     setMessage("");
   }
@@ -29,13 +34,18 @@ function Chat({userName}) {
       <h3>Group Chat</h3>
     </div>
     <div id='chat-div' ref={chatRef}>
-      {chat.map((payload,index)=>{
-        return (
-            <div key= {index} className={payload.userName===userName?'sender':'receiver'}> 
-            <p>{payload.message}</p>
+    {chat.length===0?(<h1 id='blank-txt'>Start a convo</h1>):
+      (
+        <>
+       <div id='date'><span>{moment().format('MMMM Do YYYY')}</span></div>
+        {chat.map((payload,index)=>(
+            <div key= {index} className={payload.userName===userName?'sender':'receiver'} style={{marginBottom:index===chat.length-1?'12px':' ',marginTop:index===0&&'0'}}> 
+            <p className='msg-txt' >{payload.message}</p>
             </div>
-        )
-      })}
+        ))}
+        </>
+      )
+    }
     </div>
     <div id='input'>
       <form id='chat-form' onSubmit={handleSubmit}>
