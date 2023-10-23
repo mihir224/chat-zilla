@@ -7,7 +7,8 @@ import moment from 'moment';
 import SendIcon from '@mui/icons-material/Send';
 
 function Chat({userName}) {
-  const socket=io('http://localhost:5000');
+  const server=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com':'http://localhost:5000';
+  const socket=io(server);
   const [message,setMessage]=useState("");
   const [chat,setChat]=useState([]);
   const chatRef=useRef(null);
@@ -39,9 +40,9 @@ function Chat({userName}) {
         <>
        <div id='date'><span>{moment().format('MMMM Do YYYY')}</span></div>
         {chat.map((payload,index)=>(
-          <div className='txt' style={{display:'flex',justifyContent:payload.userName===userName?'flex-end':'flex-start'}} >
+          <div key= {index} className='txt' style={{display:'flex',justifyContent:payload.userName===userName?'flex-end':'flex-start'}} >
           <div className='un' style={{display:payload.userName===userName?'none':'content'}}>{payload.userName} </div>
-            <div key= {index} className={payload.userName===userName?'sender':'receiver'} style={{marginTop:index===0&&'0'}}> 
+            <div className={payload.userName===userName?'sender':'receiver'} style={{marginTop:index===0&&'0'}}> 
             <p className='msg-txt' >{payload.message}</p>
             </div>
             <div className='un' style={{display:payload.userName===userName?'content':'none'}}>{payload.userName}</div>
