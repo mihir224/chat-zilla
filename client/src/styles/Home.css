@@ -22,7 +22,8 @@
     border-radius: 10px;
     font-size: 16px;
     padding:10px;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell';
     font-weight: 600;
 }
 #un-submit:hover{
@@ -30,9 +31,10 @@
     color:#282c34
 }
 #username-ip{
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell'; 
     font-weight: 600;
-    padding:10px;
+    padding:10px 2px;
     font-size: 24px;
     border:none;
     border-radius: 12px;
