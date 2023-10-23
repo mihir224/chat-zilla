@@ -9,7 +9,7 @@
 #un-form{
     display: flex;
     align-items: center;
-    gap:15px;
+    gap:20px;
     padding:5px;
     flex-direction: column;
     height: 110px;
@@ -20,11 +20,10 @@
     font-weight: 500;
     border: none;
     border-radius: 10px;
-    font-size: 18px;
-    padding:13px;
+    font-size: 16px;
+    padding:10px;
     font-family: 'Montserrat';
     font-weight: 600;
-
 }
 #un-submit:hover{
     background-color: white;
@@ -41,7 +40,6 @@
     color: white;
     text-align: center;
     transition-duration: 0.2s;
-
 }
 #username-ip:hover{
     background-color: white;
