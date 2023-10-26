@@ -11,7 +11,8 @@ import {useSelector} from 'react-redux';
 function Chat() {
   const server=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com':'http://localhost:5000';
   const socket=io(server);
-  const userName=useSelector((state)=>state.user.userName)
+  const userName=useSelector((state)=>state.user.userName);
+  const room=useSelector((state)=>state.user.room);
   const [message,setMessage]=useState("");
   const [chat,setChat]=useState([]);
   const chatRef=useRef(null);
@@ -37,7 +38,7 @@ function Chat() {
   return userName.length===0?(<Navigate to="/" replace={true} />):(
     <div id='chat'>
      <div id='chat-header'>
-      <h3>Group Chat</h3>
+      <h3>{room}</h3>
     </div>
     <div id='chat-div' ref={chatRef}>
     {chat.length===0?(<h1 id='blank-txt'>Start a convo <span>(currently texting as {userName})</span></h1>):
@@ -63,7 +64,7 @@ function Chat() {
       <form id='chat-form' onSubmit={handleSubmit}>
         <input id='msg-ip' type='text' placeholder='Enter Message' value={message} onChange={(e)=>{
           setMessage(e.target.value);
-        }} autocomplete='off'></input>
+        }} autoComplete='off'></input>
         <button type='submit'><SendIcon className='send-icon'/></button>
       </form>
     </div>
