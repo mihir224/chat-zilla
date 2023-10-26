@@ -66,7 +66,7 @@
     gap:5px;
 }
 .receiver{
-    background-color: rgba(128, 128, 128);
+    background-color: rgba(128, 128, 128,0.78);
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;

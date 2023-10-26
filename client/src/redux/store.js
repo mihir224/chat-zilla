@@ -34,4 +34,4 @@ export const store=process.env.NODE_ENV==='production'?configureStore({
     reducer:rootReducer
 })
 
-export const persistor=persistStore(store)
+export const persistor=process.env.NODE_ENV==='production'?persistStore(store):null;

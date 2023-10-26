@@ -63,7 +63,7 @@ function Chat() {
       <form id='chat-form' onSubmit={handleSubmit}>
         <input id='msg-ip' type='text' placeholder='Enter Message' value={message} onChange={(e)=>{
           setMessage(e.target.value);
-        }}></input>
+        }} autocomplete='off'></input>
         <button type='submit'><SendIcon className='send-icon'/></button>
       </form>
     </div>
