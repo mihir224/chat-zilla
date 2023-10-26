@@ -38,23 +38,23 @@
     font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell'; 
     font-weight: 600;
-    padding:10px 2px;
-    font-size: 24px;
+    padding:10px 0;
+    font-size: 26px;
     border:none;
     border-radius: 12px;
     background-color: #282c34;
     color: white;
     text-align: center; 
-    transition-duration: 0.3s;
+    transition-duration: 0.4s;
 }
 #username-ip{
     animation-name: display;
-    animation-duration: 0.5s;
+    animation-duration: 0.6s;
     animation-iteration-count: 1;
 }
 #room-ip{
     animation-name: slideLeft;
-    animation-duration: 0.7s;
+    animation-duration: 0.9s;
     animation-iteration-count: 1;
 }
 .ip:hover{
@@ -63,6 +63,7 @@
 }
 .ip::placeholder{
     font-style: italic;
+    font-size: 22px;
 }
 .ip:focus{
     outline: none;
