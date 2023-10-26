@@ -25,6 +25,7 @@
     font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell';
     font-weight: 600;
+    transition-duration:0.3s;
 }
 #un-submit:hover{
     background-color: white;
@@ -41,7 +42,7 @@
     background-color: #282c34;
     color: white;
     text-align: center;
-    transition-duration: 0.2s;
+    transition-duration: 0.3s;
 }
 #username-ip:hover{
     background-color: white;
