@@ -3,9 +3,12 @@ import '../styles/Home.css';
 import {Link} from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux';
 import {setUserName, setRoom, setFlag} from '../redux/userSlice';
+import {io} from 'socket.io-client';
 
 function Home(){
     const dispatch=useDispatch();
+    const server=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com':'http://localhost:5000';
+    const socket=io(server);
     const userName=useSelector((state)=>state.user.userName);
     const room=useSelector((state)=>state.user.room);
     const inputRef=useRef(null);

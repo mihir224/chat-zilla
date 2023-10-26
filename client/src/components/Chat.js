@@ -20,7 +20,14 @@ function Chat() {
     socket.on("chat", (payload) => { 
       setChat((prevChat) => [...prevChat, payload]); // using this instead of setChat([...prevChat,payload]) ensures that through closure, the last state is always captured because in this case it can happen that prev state is not updated and a new message arrives which can cause current message to overwrite prev one. closures ensure that prevState is always the latest one
     });
+    socket.on("generated",(payload)=>{
+      alert(payload);
+    });
   },[]); 
+  useEffect(()=>{
+    socket.emit("room",{userName:userName,room:room});
+  },[room])
+  
   useEffect(()=>{
     if(chat?.length!==0){
       chatRef.current.scrollTop=chatRef.current.scrollHeight;
