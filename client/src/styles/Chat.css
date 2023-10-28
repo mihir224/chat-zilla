@@ -1,15 +1,22 @@
-#chat{
-    background-color: white;
+#chat-container{
+    flex:1;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    border: none;
-    height: 80vh;
-    border-radius: 15px;
-    width:350px;
+    flex-direction: row;
+    width: 100%;
+    align-items: stretch;
     animation-name:display;
     animation-duration: 0.4s;
     animation-iteration-count: 1;
+}
+#chat{
+    display: flex;
+    flex:4.5;
+    flex-direction: column;
+    background-color: white;
+    align-items: center;
+    border: none;
+    
 }
 #chat-header{
     width: 100%;
@@ -17,7 +24,7 @@
     border:none;
 }
 #chat-header>h3{
-    padding:20px 0;
+    padding:12px 0;
     color:#282c34;
     font-size: 22px;
     margin:0;
@@ -25,13 +32,14 @@
 #chat-div{
     background-color: white;
     width: 100%;
-    height: 100%;
+    max-height: calc(100vh - 170px);
     color:white;
     overflow-y: scroll;
     z-index: 2;
-    box-shadow: 0 0 2px black;
+    box-shadow: 0 0 1px black;
     display: flex;
     flex-direction: column;
+    flex:1;
     gap:8px;
 }
 #blank-txt{
@@ -51,47 +59,43 @@
 }
 #date{
     text-align: center;
-    border-bottom: 1px solid #282c3467;
-    line-height: 0;
-    margin: 15px 8px 5px 8px;
+    padding:5px 2px;
  }
 #date>span{
     background:white ;
-    padding:0 5px; 
     color:#282c34be;
     font-weight: 600;
     font-size: 13px;
 }
 .txt{
     max-width: 62%;
-    padding: 4px 9px;
+    padding: 5px 12px;
     display: flex;
     gap:5px;
 }
 .receiver{
-    background-color: rgba(128, 128, 128,0.84);
+    background-color: rgba(119, 118, 118);
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
-    margin-left: 8px;
+    margin-left: 12px;
 }
 .sender{
-    background-color: #007AFF;
+    background-color: #282c34;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom-left-radius: 12px;
-    margin-right: 8px;
+    margin-right: 12px;
 }
 .msg-txt{
     margin:0;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
     word-break:break-all;
-    opacity: 0.9;
 }
 .un{
-    color: black;
-    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
     font-weight: bold;
     display: block;
     border-radius: inherit;
@@ -129,7 +133,7 @@
     width:80%;
     font-family: inherit;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 15px;
     color:#282c34;
 }
 #msg-ip::placeholder{
@@ -154,6 +158,13 @@
 
 #chat-form>button:hover{
     opacity: 1;
+}
+@media screen and (max-width:400px) {
+    #chat-container{
+        flex:1;
+        flex-direction: column;
+        
+    }
 }
 @keyframes display{
     0%{

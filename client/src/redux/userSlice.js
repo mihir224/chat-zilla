@@ -5,7 +5,8 @@ const userSlice=createSlice({
     initialState:{
         userName:"",
         room:"",
-        flag:false
+        flag:false,
+        open:false
     },
     reducers:{
         setUserName:(state,action)=>{
@@ -16,11 +17,14 @@ const userSlice=createSlice({
         },
         setFlag:(state,action)=>{
             state.flag=action.payload;
+        },
+        setOpen:(state)=>{
+            state.open=!state.open
         }
     }
 });
 
-export const {setUserName,setRoom,setFlag}=userSlice.actions;
+export const {setUserName,setRoom,setFlag,setOpen}=userSlice.actions;
 
 export default userSlice.reducer;
 

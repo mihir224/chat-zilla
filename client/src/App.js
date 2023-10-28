@@ -1,5 +1,4 @@
 import './App.css';
-import {useState} from 'react';
 import Chat from './components/Chat';
 import Home from './components/Home';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
@@ -8,7 +7,6 @@ import {setUserName,setFlag} from './redux/userSlice';
 
 function App() {
   const dispatch=useDispatch();
-  const [userName,setUserName]=useState("");
   return (
     <BrowserRouter>
     <div className="App">
@@ -16,12 +14,12 @@ function App() {
     <Link to='/' style={{textDecoration:'none',color:'white'}} onClick={()=>{
       dispatch(setUserName(''));
       dispatch(setFlag(false));
-    }}><h1>ChatZilla</h1></Link>
+    }}><h1 id='logo'>ChatZilla</h1></Link>
     </div>
     <div id='app-body'>
-    <Routes>
-      <Route path='/' element={<Home userName={userName} setUserName={setUserName}/>}/>
-      <Route path='/chat' element={<Chat userName={userName}/>}/>
+    <Routes id='test'>
+      <Route path='/' element={<Home/>}/>
+      <Route path='/chat' element={<Chat/>}/>
     </Routes>
     </div>
     </div>
