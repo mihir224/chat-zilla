@@ -7,6 +7,7 @@ import moment from 'moment';
 import SendIcon from '@mui/icons-material/Send';
 import {Navigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import SideBar from './SideBar';
 
 function Chat() {
   const server=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com':'http://localhost:5000';
@@ -33,6 +34,7 @@ function Chat() {
       chatRef.current.scrollTop=chatRef.current.scrollHeight;
     }
   },[chat])
+  
   const handleSubmit=(e)=>{
     e.preventDefault();
     if(message.length===0){
@@ -43,6 +45,8 @@ function Chat() {
     setMessage("");
   }
   return userName.length===0?(<Navigate to="/" replace={true} />):(
+    <div id='chat-container'>
+    <SideBar/>
     <div id='chat'>
      <div id='chat-header'>
       <h3>{room}</h3>
@@ -74,6 +78,7 @@ function Chat() {
         }} autoComplete='off'></input>
         <button type='submit'><SendIcon className='send-icon'/></button>
       </form>
+    </div>
     </div>
     </div>
   )
