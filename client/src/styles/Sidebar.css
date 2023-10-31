@@ -1,0 +1,32 @@
+#side-bar{
+    text-align: center;
+    width:250px;
+    padding:25px 0;
+    align-self: stretch;
+}
+.sb-list{
+    list-style: none;
+    padding:10px 0;
+    margin:0;
+    color:white;
+    text-align: center;
+    font-weight: 500;
+   
+}
+#list-label{
+    text-align: center;
+    color: white;
+    font-weight: 600;
+}
+.sb-list>li{
+    padding:10px 0;
+    opacity: 0.8;
+}
+.sb-list>li:hover{
+    opacity: 1;
+}
+@media screen and (max-width:400px){
+    #side-bar{
+        align-self: center;
+    }
+}
