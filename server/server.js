@@ -2,13 +2,24 @@ import express from 'express';
 import { Server } from 'socket.io';
 import { createServer } from 'http';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 const app=express();
+
 var currentUser={
     userName:"",
     room:""
 };
+
 dotenv.config();
+
+const connect=()=>{
+    mongoose.connect(`mongodb+srv://${process.env.MONGO}@cluster0.ly91ewg.mongodb.net/?retryWrites=true&w=majority`).then(()=>{
+        console.log('DB Connected');
+    }).catch(err=>{
+        console.log(err);
+    });
+}
 
 const server=createServer(app);
 const io=new Server(server,{
@@ -37,6 +48,7 @@ io.on("connection",(socket)=>{
 });
 
 server.listen(PORT,()=>{
+    // connect();
     console.log("server started on port ", PORT);
 });
 
