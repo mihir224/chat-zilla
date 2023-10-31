@@ -8,25 +8,7 @@
   flex-direction: column;
   font-family:'poppins'
 }
-#logo{
-  color:red;
-  font-style: italic;
-  transition-duration: 0.1s;
-  margin:0;
-  text-align: center;
-  width:250px;
-}
-#logo:hover{
-  color:white;
-}
-#navbar{
-  padding: 10px 0;
-  color:white;
-  background-color: rgba(76, 86, 102, 0.304);
-  box-shadow: 0 0 2px black;
-  font-size: 15px;
-  z-index: 3;
-}
+
 #app-body{
   display: flex;
   align-items: center;
@@ -39,13 +21,4 @@ button{
 }
 button:active{
   transform: scale(0.9);
-}
-@media screen and (max-width:400px){
-  #navbar{
-    text-align: center;
-  }
-  #logo{
-    display: block;
-    width: 100%;
-  }
 }

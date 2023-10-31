@@ -7,7 +7,8 @@ import moment from 'moment';
 import SendIcon from '@mui/icons-material/Send';
 import {Navigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import SideBar from './SideBar';
+import Sidebar from './Sidebar';
+
 
 function Chat() {
   const server=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com':'http://localhost:5000';
@@ -44,15 +45,15 @@ function Chat() {
     socket.emit("chat",{message:message,userName:userName,time:moment().format('h:mm  a')}); //send payload to socket-server through chat event
     setMessage("");
   }
-  return userName.length===0?(<Navigate to="/" replace={true} />):(
+  return userName.length===0?(<Navigate to="/signin" replace={true} />):(
     <div id='chat-container'>
-    <SideBar/>
+    <Sidebar/>
     <div id='chat'>
      <div id='chat-header'>
       <h3>{room}</h3>
     </div>
     <div id='chat-div' ref={chatRef}>
-    {chat.length===0?(<h1 id='blank-txt'>Start a convo <span>(currently texting as {userName})</span></h1>):
+    {chat.length===0?(<h1 id='blank-txt'>Start a conversation... <span>(currently texting as {userName})</span></h1>):
       (
         <> 
        <div id='date'><span>{moment().format('MMMM Do YYYY')}</span></div>

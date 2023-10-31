@@ -1,7 +1,7 @@
 import React from 'react';
-import '../styles/SideBar.css';
+import '../styles/Sidebar.css';
 
-function SideBar(){
+function Sidebar(){
     return (
         <div id='side-bar'>
         <label id='list-label' htmlFor='user-list'>Users Connected</label>
@@ -18,4 +18,4 @@ function SideBar(){
     )
 }
 
-export default SideBar;
+export default Sidebar;
