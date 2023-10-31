@@ -4,19 +4,28 @@ const userSlice=createSlice({
     name:'user',
     initialState:{
         userName:"",
+        password:"",
         room:"",
-        flag:false,
+        stage:1,
         open:false
     },
     reducers:{
         setUserName:(state,action)=>{
             state.userName=action.payload;
         },
+        setPassword:(state,action)=>{
+            state.password=action.payload;
+        },
         setRoom:(state,action)=>{
             state.room=action.payload;
         },
-        setFlag:(state,action)=>{
-            state.flag=action.payload;
+        setStage:(state,action)=>{
+            if(action.payload===1){
+                state.stage=action.payload
+            }
+            else{
+                state.stage=state.stage+1
+            }
         },
         setOpen:(state)=>{
             state.open=!state.open
@@ -24,7 +33,7 @@ const userSlice=createSlice({
     }
 });
 
-export const {setUserName,setRoom,setFlag,setOpen}=userSlice.actions;
+export const {setUserName,setPassword,setRoom,setStage,setOpen}=userSlice.actions;
 
 export default userSlice.reducer;
 

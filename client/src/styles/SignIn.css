@@ -1,0 +1,57 @@
+#signin{
+    flex:1;
+    display: flex;
+    height: 60vh;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+}
+#un-submit{
+    background-color:#282c34;
+    color:white;
+    background-color: white;
+    color:#282c34;
+    font-weight: 500;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    padding:5px 10px;
+    font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell';
+    font-weight: 600;
+}
+#un-form{
+    display: flex;
+    align-items: center;
+    gap:20px;
+    padding:5px;
+    flex-direction: column;
+    height: 110px;
+}
+.ip{
+    font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell'; 
+    font-weight: 600;
+    padding:5px 0;
+    font-size: 26px;
+    border:none;
+    border-radius: 12px;
+    background-color: #282c34;
+    color: white;
+    text-align: center; 
+    transition-duration: 0.4s;
+    animation-name: display;
+    animation-duration: 0.6s;
+    animation-iteration-count: 1;
+}
+.ip:hover{
+    background-color: white;
+    color:#282c34
+}
+.ip::placeholder{
+    font-style: italic;
+    font-size: 22px;
+}
+.ip:focus{
+    outline: none;
+}
