@@ -1,18 +1,16 @@
 #home{
-    flex:1;
-    display: flex;
-    height: 60vh;
+    color:white;
+    width:70%;
+    display:flex;
+    flex-direction:column;
     align-items: center;
-    justify-content: center;
-    overflow-y: scroll;
+    gap:24px;
+    animation-name: display;
+    animation-duration: 0.6s;
+    animation-iteration-count: 1;
 }
-#un-form{
-    display: flex;
-    align-items: center;
-    gap:20px;
-    padding:5px;
-    flex-direction: column;
-    height: 110px;
+#home>h2,#home>h3{
+    margin:0;
 }
 #un-submit{
     background-color:#282c34;
@@ -21,7 +19,7 @@
     border: none;
     border-radius: 10px;
     font-size: 16px;
-    padding:10px;
+    padding:5px 10px;
     font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell';
     font-weight: 600;
@@ -33,40 +31,6 @@
 #un-submit:hover{
     background-color: white;
     color:#282c34
-}
-.ip{
-    font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell'; 
-    font-weight: 600;
-    padding:10px 0;
-    font-size: 26px;
-    border:none;
-    border-radius: 12px;
-    background-color: #282c34;
-    color: white;
-    text-align: center; 
-    transition-duration: 0.4s;
-}
-#username-ip{
-    animation-name: display;
-    animation-duration: 0.6s;
-    animation-iteration-count: 1;
-}
-#room-ip{
-    animation-name: slideLeft;
-    animation-duration: 0.9s;
-    animation-iteration-count: 1;
-}
-.ip:hover{
-    background-color: white;
-    color:#282c34
-}
-.ip::placeholder{
-    font-style: italic;
-    font-size: 22px;
-}
-.ip:focus{
-    outline: none;
 }
 
 @keyframes display{
@@ -102,16 +66,5 @@
     }
     100%{
         opacity: 1;
-    }
-}
-
-@keyframes slideLeft {
-    0%{
-        opacity: 0;
-        transform:translateX(100%);
-    }
-    100%{
-        opacity: 1;
-        transform: translateX(0);
     }
 }
