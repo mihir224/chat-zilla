@@ -22,6 +22,7 @@ function SignIn(){
         else if(stage===3){
             roomRef.current.focus();
         }
+        console.log(stage);
     },[stage])
     const handleSubmit=(e)=>{
         e.preventDefault();
@@ -52,7 +53,9 @@ function SignIn(){
             }}/>
         }
         {room&&(stage===3)&&<Link to='/chat'>
-            <button id='un-submit' type='submit'>Start Chat</button>
+            <button id='un-submit' type='submit' onClick={()=>{
+                dispatch(setStage());
+            }}>Start Chat</button>
         </Link>
         }
         </form>

@@ -28,5 +28,7 @@
 @media screen and (max-width:400px){
     #side-bar{
         align-self: center;
+        display: flex;
+        justify-content: space-between;
     }
 }
