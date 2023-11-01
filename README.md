@@ -1,6 +1,6 @@
 ## ChatZilla
 
-ChatZilla is a basic chat web application powered by Socket.IO, designed to provide real-time messaging capabilities for users. This web app serves as a foundation for more complex chat applications and can be customized to meet your specific requirements.
+ChatZilla is a chat application powered by Socket.IO, designed to provide real-time messaging capabilities for users. 
 
 ### Features
 
