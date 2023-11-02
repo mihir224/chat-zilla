@@ -1,5 +1,19 @@
 import mongoose from "mongoose";
 
+const MessageSchema=new mongoose.Schema({
+    userId:{
+        type:Number
+    },
+    content:{
+        type:String,
+        default:""
+    },
+    isUser:{
+        type:Boolean,
+        default:true
+    }
+})
+
 const RoomSchema=new mongoose.Schema({
     name:{
         type:String,
@@ -7,7 +21,7 @@ const RoomSchema=new mongoose.Schema({
         unique:true
     },
     messages:{
-        type:[String],
+        type:[MessageSchema],
         default:[]
     },
     members:{
@@ -15,7 +29,8 @@ const RoomSchema=new mongoose.Schema({
         default:[]
     },
     desc:{
-        type:String
+        type:String,
+        default:"a ChatZilla room"
     }
 },{timestamps:true});
 
