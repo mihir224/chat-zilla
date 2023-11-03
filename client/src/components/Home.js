@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import '../styles/Home.css';
-import {Link} from 'react-router-dom';
+import {Link,useSelector} from 'react-router-dom';
 
 function Home(){
     const text='ChatZilla';
@@ -15,9 +15,12 @@ function Home(){
         <div id='home'>
         <h2>The all-in-one chat app for gamers, streamers, and friends.</h2>
         <h3>Stay connected to your loved ones with <span>ChatZilla</span>!</h3>
-        <Link to='/chat'>
+        <div id='home-btns'>
+        {/* <button id='un-submit' type='submit'>Join a room</button> */}
+        <Link to='/room'>
             <button id='un-submit' type='submit'>Create a room</button>
         </Link>
+        </div>
         </div>
     )
 }

@@ -3,21 +3,27 @@ import {createSlice} from '@reduxjs/toolkit';
 const userSlice=createSlice({
     name:'user',
     initialState:{
-        userName:"",
-        password:"",
-        room:"",
+        currentUser:null,
+        isLoading:false,
+        err:null,
         stage:1,
         open:false
     },
     reducers:{
-        setUserName:(state,action)=>{
-            state.userName=action.payload;
+        loginStart:(state)=>{
+            state.isLoading=true;
         },
-        setPassword:(state,action)=>{
-            state.password=action.payload;
+        setUser:(state,action)=>{
+            state.isLoading=false;
+            state.currentUser=action.payload;
         },
-        setRoom:(state,action)=>{
-            state.room=action.payload;
+        loginFail:(state,action)=>{
+            state.isLoading=false;
+            state.err=action.payload;
+        },
+        logout:(state,action)=>{
+            state.currentUser=null;
+            state.isLoading=false;
         },
         setStage:(state,action)=>{
             if(action.payload===1){
@@ -33,7 +39,7 @@ const userSlice=createSlice({
     }
 });
 
-export const {setUserName,setPassword,setRoom,setStage,setOpen}=userSlice.actions;
+export const {loginStart,setUser,loginFail,logout,setStage,setOpen}=userSlice.actions;
 
 export default userSlice.reducer;
 

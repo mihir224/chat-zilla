@@ -4,7 +4,13 @@
     height: 60vh;
     align-items: center;
     justify-content: center;
+    color:white;
+    text-align: center;
     overflow-y: scroll;
+    flex-direction: column;
+}
+#signin>span{
+    font-weight: 400;
 }
 #un-submit{
     background-color:#282c34;
@@ -54,4 +60,15 @@
 }
 .ip:focus{
     outline: none;
+}
+.load{
+    color:white 
+}
+#room-ip{
+    display: flex;
+    align-items: center;
+    gap:20px;
+    padding:5px;
+    flex-direction: column;
+    height: 110px;
 }

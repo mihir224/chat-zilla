@@ -12,6 +12,10 @@
 #home>h2,#home>h3{
     margin:0;
 }
+#home-btns{
+    display:flex;
+    gap:15px;
+}
 #un-submit{
     background-color:#282c34;
     color:white;

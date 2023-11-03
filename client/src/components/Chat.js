@@ -5,7 +5,7 @@ import {useState,useEffect,useRef} from  'react';
 import {io} from 'socket.io-client';
 import moment from 'moment';
 import SendIcon from '@mui/icons-material/Send';
-import {Navigate} from 'react-router-dom';
+import {Navigate,Link,useLocation} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import Sidebar from './Sidebar';
 
@@ -13,7 +13,9 @@ import Sidebar from './Sidebar';
 function Chat() {
   const server=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com':'http://localhost:5000';
   const socket=io(server);
-  const userName=useSelector((state)=>state.user.userName);
+  const room_id=useLocation().pathname.split('/')[2];
+  const currentUser=useSelector((state)=>state.user.currentUser);
+  const currentRoom=useSelector((state)=>state.room.currentRoom);
   const room=useSelector((state)=>state.user.room);
   const [message,setMessage]=useState("");
   const [chat,setChat]=useState([]);
@@ -27,7 +29,7 @@ function Chat() {
     });
   },[]); 
   useEffect(()=>{
-    socket.emit("room",{userName:userName,room:room});
+    socket.emit("room",{userName:currentUser.name,room_id:room_id});
   },[room])
   
   useEffect(()=>{
@@ -42,10 +44,10 @@ function Chat() {
       alert('message is empty');
       return;
     }
-    socket.emit("chat",{message:message,userName:userName,time:moment().format('h:mm  a')}); //send payload to socket-server through chat event
+    socket.emit("chat",{message:message,userName:currentUser.name,time:moment().format('h:mm  a')}); //send payload to socket-server through chat event
     setMessage("");
   }
-  return userName.length===0?(<Navigate to="/signin" replace={true} />):(
+  return !currentUser?(<Navigate to="/signin" replace={true} />):(
     <div id='chat-container'>
     <Sidebar/>
     <div id='chat'>
@@ -53,15 +55,15 @@ function Chat() {
       <h3>{room}</h3>
     </div>
     <div id='chat-div' ref={chatRef}>
-    {chat.length===0?(<h1 id='blank-txt'>Start a conversation... <span>(currently texting as {userName})</span></h1>):
+    {chat.length===0?(<h1 id='blank-txt'>Start a conversation... <span>(currently texting as {currentUser.name})</span></h1>):
       (
         <> 
        <div id='date'><span>{moment().format('MMMM Do YYYY')}</span></div>
         {chat.map((payload,index)=>(
-          <div key={index} style={{marginBottom:index===chat.length-1?'8px':'', display:'flex',justifyContent:payload.userName===userName?'flex-end':'flex-start'}} >
-            <div className={`txt ${payload.userName===userName?'sender':'receiver'}`} style={{marginTop:index===0&&'0'}}> 
+          <div key={index} style={{marginBottom:index===chat.length-1?'8px':'', display:'flex',justifyContent:payload.userName===currentUser.name?'flex-end':'flex-start'}} >
+            <div className={`txt ${payload.userName===currentUser.name?'sender':'receiver'}`} style={{marginTop:index===0&&'0'}}> 
             <div id='un-msg'>
-            <div className='un'>{payload.userName===userName?'You':payload.userName}</div>
+            <div className='un'>{payload.userName===currentUser.name?'You':payload.userName}</div>
             <p className='msg-txt' >{payload.message}</p>
             </div>
             <div id='time'><p>{payload.time}</p></div>

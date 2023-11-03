@@ -1,12 +1,13 @@
 import React,{useState,useEffect,useRef} from 'react';
 import '../styles/SignIn.css';
-import {Link,Navigate} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux';
 import {loginStart,loginFail, setUser, setStage} from '../redux/userSlice';
 import axios from 'axios';
-function SignIn(){
+function SignUp(){
     const dispatch=useDispatch();
     const [username,setUsername]=useState("");
+    const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const currentUser=useSelector(state=>state.user.currentUser);
     const room=useSelector((state)=>state.room.currentRoom);
@@ -14,24 +15,29 @@ function SignIn(){
     const stage=useSelector((state)=>state.user.stage);
     const usernameRef=useRef(null);
     const passwordRef=useRef(null);
+    const emailRef=useRef(null);
     useEffect(()=>{
         if(stage===1){
             usernameRef.current.focus();
         }
-        else if(stage===2){
+        else if(stage==2){
+            emailRef.current.focus();
+        }
+        else if(stage===3){
             passwordRef.current.focus();
         }
+
     },[stage]);
 
     const handleSubmit=(e)=>{
         e.preventDefault();
         dispatch(setStage());
     }
-    const handleSignin=async (e)=>{
+    const handleSignup=async (e)=>{
         e.preventDefault();
         dispatch(loginStart());
         try{
-            const res=await axios.post('http://localhost:5000/api/auth/signin',{name:username,password:password});
+            const res=await axios.post('http://localhost:5000/api/auth/signup',{name:username,email:email,password:password});
             dispatch(setUser(res.data));
         }catch(err){
             // alert('invalid credentials. try again!');
@@ -49,26 +55,32 @@ function SignIn(){
         {
             stage===1&&<input ref={usernameRef} className='ip' type='text' placeholder='Enter username...' value={username} autoComplete='off' onChange={(e)=>{
             setUsername(e.target.value);
-        }}/>
-            
+        }}/>   
         }
         {username&&(stage===1)&&
+            <button id='un-submit' type='submit'>Enter Email</button>
+        }
+        {
+            stage===2&&<input ref={emailRef} className='ip' type='text' placeholder='Enter email...' value={email} autoComplete='off' onChange={(e)=>{
+            setEmail(e.target.value);
+        }}/>   
+        }
+        {email&&(stage===2)&&
             <button id='un-submit' type='submit'>Enter Password</button>
         }
         {
-            stage===2&&<input ref={passwordRef} className='ip' type='text' placeholder='Enter password...' value={password} autoComplete='off' onChange={(e)=>{
+            stage===3&&<input ref={passwordRef} className='ip' type='text' placeholder='Enter password...' value={password} autoComplete='off' onChange={(e)=>{
                 setPassword(e.target.value);
             }} />
         }
-        {password&&(stage===2)&&
-            <button id='un-submit' type='submit' onClick={handleSignin}>Sign in</button>
+        {password&&(stage===3)&&
+            <button id='un-submit' type='submit' onClick={handleSignup}>Sign up</button>
         }
         </form>
-        <span>don't have an account? sign up <Link to='/signup' style={{color:'white'}} replace={true}>here</Link></span>
         </div>)
     )
 }
 
-export default SignIn;
+export default SignUp;
 
 
