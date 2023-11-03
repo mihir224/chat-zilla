@@ -9,10 +9,18 @@ import messageRoutes from './routes/message.js'
 import roomRoutes from './routes/room.js';
 import userRoutes from './routes/user.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const app=express();
 
 dotenv.config();
+
+const allowedOrigins=['http://localhost:3000','https://chat-zilla.netlify.app'];
+
+app.use(cors({
+    origins:allowedOrigins,
+    methods:["GET","POST","PUT","PATCH","DELETE"]
+}))
 
 var currentUser={
     userName:"",

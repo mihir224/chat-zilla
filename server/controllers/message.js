@@ -1,4 +1,5 @@
 import Message from '../models/Message.js';
+import {createError} from '../error.js';
 
 //for both these operations it is imp to verify if the user trying to edit the message is the sender of that message or not
 export const updateMessage=async(req,res,next)=>{
@@ -15,7 +16,7 @@ export const updateMessage=async(req,res,next)=>{
         }
     }
     else{
-        res.status(401).json("You are not allowed to modify this message")
+        return next(createError(401,'Unauthorised'));
     }
 }
 
@@ -31,6 +32,6 @@ export const deleteMessage=async(req,res,next)=>{
         }
     }
     else{
-        res.status(401).json("You are not allowed to delete this message")
+        return next(createError(401,'Unauthorised'));
     }
 }

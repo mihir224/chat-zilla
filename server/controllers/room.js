@@ -4,6 +4,9 @@ import Room from '../models/Room.js';
 export const getRoom=async(req,res,next)=>{
     try{
         const room=await Room.findById(req.params.id);
+        if(!room){
+            return next(createError(401,'Room not found'));
+        }
         res.status(200).json(room);
     }catch(err){
         console.log(err);
