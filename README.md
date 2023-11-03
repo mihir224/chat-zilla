@@ -7,7 +7,7 @@ ChatZilla is a chat application powered by Socket.IO, designed to provide real-t
 - Initialised socket.IO events
 - Developed a responsive chat interface 
 - Tested the working of socket events on both client and server side
-- Developed an interactive sign in page
+- Developed interactive sign in and home pages
 - Configured MongoDB cloud and initialised collections: Message, Room and User on the server side
 - Initialised routes and controllers
 - Implemented JWT auth
