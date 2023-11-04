@@ -5,10 +5,10 @@ import Message from '../models/Message.js';
 export const updateChat=async (req,res,next)=>{
     const message=new Message({...req.body,userId:req.data.id});
     try{
-        const room=await Room.findByIdAndUpdate(req.params.id,{
-            $push:{messages:message}
+        const updatedRoom=await Room.findByIdAndUpdate(req.params.id,{
+            $addToSet:{messages:message}
         });
-        res.status(200).json(room);
+        res.status(200).json(updatedRoom);
     }catch(err){
         console.log(err);
     }

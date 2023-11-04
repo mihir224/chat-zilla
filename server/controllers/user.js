@@ -43,7 +43,7 @@ export const findUser=async(req,res,next)=>{
 //add room to user rooms list
 export const addRoom=async(req,res,next)=>{
     try{
-        const updatedUser=await User.findById(req.data.id,{
+        const updatedUser=await User.findByIdAndUpdate(req.data.id,{
             $addToSet:{rooms:req.params.id}
         },{new:true});
         res.status(200).json(updatedUser);

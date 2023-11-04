@@ -5,38 +5,71 @@ import {useState,useEffect,useRef} from  'react';
 import {io} from 'socket.io-client';
 import moment from 'moment';
 import SendIcon from '@mui/icons-material/Send';
-import {Navigate,Link,useLocation} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {Navigate,useLocation} from 'react-router-dom';
+import {useDispatch,useSelector} from 'react-redux';
 import Sidebar from './Sidebar';
-
+import axios from 'axios';
+import {setRoom} from '../redux/roomSlice';
 
 function Chat() {
   const server=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com':'http://localhost:5000';
   const socket=io(server);
+  const dispatch=useDispatch();
   const room_id=useLocation().pathname.split('/')[2];
   const currentUser=useSelector((state)=>state.user.currentUser);
   const currentRoom=useSelector((state)=>state.room.currentRoom);
-  const room=useSelector((state)=>state.user.room);
   const [message,setMessage]=useState("");
   const [chat,setChat]=useState([]);
   const chatRef=useRef(null);
   useEffect(() => {
     socket.on("chat", (payload) => { 
       setChat((prevChat) => [...prevChat, payload]); // using this instead of setChat([...prevChat,payload]) ensures that through closure, the last state is always captured because in this case it can happen that prev state is not updated and a new message arrives which can cause current message to overwrite prev one. closures ensure that prevState is always the latest one
+      (async()=>{
+        try{
+          const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
+          const res=await axios.put(`${url}/chat/${room_id}`,{sender:payload.userName,content:payload.message,time:payload.time},{withCredentials:true});
+          console.log(res.data);
+          dispatch(setRoom(res.data));
+        }
+        catch(err){
+          console.log(err);
+          alert('an error occured. check console and try again.')
+        }
+      })();   
     });
     socket.on("generated",(payload)=>{
       alert(payload);
+      (async ()=>{
+        try{
+          const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
+          const res=await axios.put(`${url}/chat/${room_id}`,{content:payload,isUser:false},{withCredentials:true});
+          console.log(res.data);
+          dispatch(setRoom(res.data));
+        }catch(err){
+          console.log(err); 
+          alert('an error occured. check the console and try again.')
+        }
+      })();
     });
   },[]); 
   useEffect(()=>{
-    socket.emit("room",{userName:currentUser.name,room_id:room_id});
-  },[room])
+    socket.emit("joined",{userName:currentUser.name,room:room_id});
+    (async ()=>{
+      try{
+        const url=process.env.NODE_ENV==="production"?"https://chat-zilla-backend.onrender.com/api":"http://localhost:5000/api";
+        await axios.put(`${url}/room/addUser/${room_id}`,{},{withCredentials:true});
+        await axios.put(`${url}/user/addRoom/${room_id}`,{},{withCredentials:true}); 
+      }catch(err){
+        alert('an error occured');
+      }
+    })();
+  },[])
   
   useEffect(()=>{
-    if(chat?.length!==0){
+    if(currentRoom?.messages?.length!==0){
       chatRef.current.scrollTop=chatRef.current.scrollHeight;
     }
-  },[chat])
+  },[currentRoom])
   
   const handleSubmit=(e)=>{
     e.preventDefault();
@@ -52,21 +85,21 @@ function Chat() {
     <Sidebar/>
     <div id='chat'>
      <div id='chat-header'>
-      <h3>{room}</h3>
+      <h3>{currentRoom?.name}</h3>
     </div>
     <div id='chat-div' ref={chatRef}>
-    {chat.length===0?(<h1 id='blank-txt'>Start a conversation... <span>(currently texting as {currentUser.name})</span></h1>):
+    {currentRoom?.messages?.length===0?(<h1 id='blank-txt'>Start a conversation... <span>(currently texting as {currentUser.name})</span></h1>):
       (
         <> 
        <div id='date'><span>{moment().format('MMMM Do YYYY')}</span></div>
-        {chat.map((payload,index)=>(
-          <div key={index} style={{marginBottom:index===chat.length-1?'8px':'', display:'flex',justifyContent:payload.userName===currentUser.name?'flex-end':'flex-start'}} >
-            <div className={`txt ${payload.userName===currentUser.name?'sender':'receiver'}`} style={{marginTop:index===0&&'0'}}> 
+        {currentRoom?.messages?.map((message,index)=>(
+          <div key={index} style={{marginBottom:index===currentRoom?.messages?.length-1?'8px':'', display:'flex',justifyContent:message.userId===currentUser._id?'flex-end':'flex-start'}} >
+            <div className={`txt ${message.userId===currentUser._id?'sender':'receiver'}`} style={{marginTop:index===0&&'0'}}> 
             <div id='un-msg'>
-            <div className='un'>{payload.userName===currentUser.name?'You':payload.userName}</div>
-            <p className='msg-txt' >{payload.message}</p>
+            <div className='un'>{message.userId===currentUser._id?'You':message.sender}</div>
+            <p className='msg-txt' >{message.content}</p>
             </div>
-            <div id='time'><p>{payload.time}</p></div>
+            <div id='time'><p>{message.time}</p></div>
             </div>
           </div>
         ))}

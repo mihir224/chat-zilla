@@ -63,7 +63,7 @@ const PORT=process.env.PORT || 5000;
 
 io.on("connection",(socket)=>{
     console.log("user connected")
-    socket.on("room",({userName,room})=>{
+    socket.on("joined",({userName,room})=>{
         setUserName({userName:userName,room:room});
         socket.join(room);
         socket.broadcast.to(room).emit("generated",`${userName} joined the chat`)

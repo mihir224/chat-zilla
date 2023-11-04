@@ -22,10 +22,9 @@ function Room(){
     const handleClick=async()=>{
         dispatch(start());
         try{
-            const res=await axios.post('http://localhost:5000/api/room/create',{name:roomname});
+            const res=await axios.post('http://localhost:5000/api/room/create',{name:roomname},{withCredentials:true});
             dispatch(setRoom(res.data));
             console.log(res.data);
-            return <Navigate to={`/chat/${currentRoom?._id}`} replace={true}></Navigate>;
         }catch(err){
             alert('an error occured. please try again.')
         }
@@ -34,7 +33,9 @@ function Room(){
 
     return currentUser?(
         isLoading?(<h1 className='load'>Loading...</h1>):
-        (<form id='room-ip' onSubmit={(e)=>{
+        (
+        <>
+        <form id='room-ip' onSubmit={(e)=>{
             e.preventDefault();
         }}>
          {currentUser&&<input ref={roomRef} className='ip' type='text' placeholder='Enter room name...' value={roomname} autoComplete='off' onChange={(e)=>{
@@ -44,7 +45,10 @@ function Room(){
         {roomname&&
             <button id='un-submit' type='submit' onClick={handleClick}>Create Room</button>
         }
-        </form>)
+        </form>
+        {currentRoom&&<Navigate to={`/chat/${currentRoom?._id}`} replace={true}></Navigate>}
+        </>
+        )
     ):(<Navigate to='/signin' replace={true}></Navigate>)
 }
 

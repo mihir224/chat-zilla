@@ -20,7 +20,7 @@ function SignUp(){
         if(stage===1){
             usernameRef.current.focus();
         }
-        else if(stage==2){
+        else if(stage===2){
             emailRef.current.focus();
         }
         else if(stage===3){
