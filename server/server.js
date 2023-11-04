@@ -18,8 +18,9 @@ dotenv.config();
 const allowedOrigins=['http://localhost:3000','https://chat-zilla.netlify.app'];
 
 app.use(cors({
-    origins:allowedOrigins,
-    methods:["GET","POST","PUT","PATCH","DELETE"]
+    origin:allowedOrigins,
+    methods:["GET","POST","PUT","PATCH","DELETE"],
+    credentials:true
 }))
 
 var currentUser={

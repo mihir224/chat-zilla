@@ -22,7 +22,6 @@ function SignIn(){
             passwordRef.current.focus();
         }
     },[stage]);
-
     const handleSubmit=(e)=>{
         e.preventDefault();
         dispatch(setStage());
@@ -31,7 +30,7 @@ function SignIn(){
         e.preventDefault();
         dispatch(loginStart());
         try{
-            const res=await axios.post('http://localhost:5000/api/auth/signin',{name:username,password:password});
+            const res=await axios.post('http://localhost:5000/api/auth/signin',{name:username,password:password},{withCredentials: true});
             dispatch(setUser(res.data));
         }catch(err){
             // alert('invalid credentials. try again!');
