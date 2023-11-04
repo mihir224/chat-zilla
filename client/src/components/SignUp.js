@@ -37,7 +37,8 @@ function SignUp(){
         e.preventDefault();
         dispatch(loginStart());
         try{
-            const res=await axios.post('http://localhost:5000/api/auth/signup',{name:username,email:email,password:password});
+            const url=process.env.NODE_ENV==="production"?"https://chat-zilla-backend.onrender.com/api":"http://localhost:5000/api";
+            const res=await axios.post(`${url}/auth/signup`,{name:username,email:email,password:password});
             dispatch(setUser(res.data));
         }catch(err){
             // alert('invalid credentials. try again!');

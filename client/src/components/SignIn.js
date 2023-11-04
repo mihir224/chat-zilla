@@ -30,7 +30,8 @@ function SignIn(){
         e.preventDefault();
         dispatch(loginStart());
         try{
-            const res=await axios.post('http://localhost:5000/api/auth/signin',{name:username,password:password},{withCredentials: true});
+            const url=process.env.NODE_ENV==="production"?"https://chat-zilla-backend.onrender.com/api":"http://localhost:5000/api";
+            const res=await axios.post(`${url}/auth/signin`,{name:username,password:password},{withCredentials: true});
             dispatch(setUser(res.data));
         }catch(err){
             // alert('invalid credentials. try again!');
