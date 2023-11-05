@@ -99,6 +99,18 @@
     font-weight: 500;
     word-break:break-all;
 }
+#bot-msg{
+    text-align: center;
+}
+.bot{
+    background-color: #282c34a4;
+    text-align: center;
+    margin:0;
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 7px;
+    font-size: 14px;
+}
 .un{
     color: rgba(255, 255, 255, 0.8);
     font-size: 15px;
@@ -164,6 +176,7 @@
     opacity:0.6;
     transition-duration: 0.2s;
 }
+
 
 #chat-form>button:hover{
     opacity: 1;

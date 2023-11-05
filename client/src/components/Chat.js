@@ -19,11 +19,25 @@ function Chat() {
   const currentUser=useSelector((state)=>state.user.currentUser);
   const currentRoom=useSelector((state)=>state.room.currentRoom);
   const [message,setMessage]=useState("");
-  const [chat,setChat]=useState([]);
   const chatRef=useRef(null);
+  useEffect(()=>{
+    console.log('generated called'); 
+    socket.on("generated",(payload)=>{
+      (async ()=>{
+        try{
+          const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
+          const res=await axios.put(`${url}/chat/${room_id}`,{content:payload,isUser:false},{withCredentials:true});
+          console.log(res.data);
+          dispatch(setRoom(res.data));
+        }catch(err){
+          console.log(err); 
+          alert('an error occured. check the console and try again.')
+        }
+      })();
+    });
+  },[room_id])
   useEffect(() => {
     socket.on("chat", (payload) => { 
-      setChat((prevChat) => [...prevChat, payload]); // using this instead of setChat([...prevChat,payload]) ensures that through closure, the last state is always captured because in this case it can happen that prev state is not updated and a new message arrives which can cause current message to overwrite prev one. closures ensure that prevState is always the latest one
       (async()=>{
         try{
           const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
@@ -36,20 +50,6 @@ function Chat() {
           alert('an error occured. check console and try again.')
         }
       })();   
-    });
-    socket.on("generated",(payload)=>{
-      alert(payload);
-      (async ()=>{
-        try{
-          const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
-          const res=await axios.put(`${url}/chat/${room_id}`,{content:payload,isUser:false},{withCredentials:true});
-          console.log(res.data);
-          dispatch(setRoom(res.data));
-        }catch(err){
-          console.log(err); 
-          alert('an error occured. check the console and try again.')
-        }
-      })();
     });
   },[]); 
   useEffect(()=>{
@@ -93,7 +93,7 @@ function Chat() {
         <> 
        <div id='date'><span>{moment().format('MMMM Do YYYY')}</span></div>
         {currentRoom?.messages?.map((message,index)=>(
-          <div key={index} style={{marginBottom:index===currentRoom?.messages?.length-1?'8px':'', display:'flex',justifyContent:message.userId===currentUser._id?'flex-end':'flex-start'}} >
+          message.isUser?(<div key={index} style={{marginBottom:index===currentRoom?.messages?.length-1?'8px':'', display:'flex',justifyContent:message.userId===currentUser._id?'flex-end':'flex-start'}} >
             <div className={`txt ${message.userId===currentUser._id?'sender':'receiver'}`} style={{marginTop:index===0&&'0'}}> 
             <div id='un-msg'>
             <div className='un'>{message.userId===currentUser._id?'You':message.sender}</div>
@@ -101,7 +101,11 @@ function Chat() {
             </div>
             <div id='time'><p>{message.time}</p></div>
             </div>
-          </div>
+          </div>):(
+            <div key={index} id='bot-msg'>
+                <p className='bot'>{message.content}</p>
+            </div>
+          )
         ))}
         </>
       )
