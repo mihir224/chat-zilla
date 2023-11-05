@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import CreateRoom from './components/CreateRoom';
+import Room from './components/Room';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
           <Route path=':id' element={<Chat/>}/>
         </Route>
         <Route path='room'>
-          {/* <Route index element={<Room/>} /> */}
+          <Route index element={<Room/>} />
           <Route path='create' element={<CreateRoom/>} />
         </Route>
         <Route path='signin' element={<SignIn/>}/>

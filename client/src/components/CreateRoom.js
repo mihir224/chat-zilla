@@ -30,7 +30,6 @@ function CreateRoom(){
         }
         dispatch(setStage());
     }
-
     return currentUser?(
         isLoading?(<h1 className='load'>Loading...</h1>):
         (

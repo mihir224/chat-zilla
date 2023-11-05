@@ -27,7 +27,6 @@ function Chat() {
         try{
           const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
           const res=await axios.put(`${url}/chat/${room_id}`,{content:payload,isUser:false},{withCredentials:true});
-          console.log(res.data);
           dispatch(setRoom(res.data));
         }catch(err){
           console.log(err); 
@@ -42,7 +41,6 @@ function Chat() {
         try{
           const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
           const res=await axios.put(`${url}/chat/${room_id}`,{sender:payload.userName,content:payload.message,time:payload.time},{withCredentials:true});
-          console.log(res.data);
           dispatch(setRoom(res.data));
         }
         catch(err){

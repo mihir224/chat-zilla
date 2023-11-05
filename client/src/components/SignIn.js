@@ -4,6 +4,8 @@ import {Link,Navigate} from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux';
 import {loginStart,loginFail, setUser, setStage} from '../redux/userSlice';
 import axios from 'axios';
+import { ThreeDots } from 'react-loader-spinner';
+
 function SignIn(){
     const dispatch=useDispatch();
     const [username,setUsername]=useState("");
@@ -43,7 +45,19 @@ function SignIn(){
         }
     }
     return currentUser?(<Navigate to='/' replace={true}></Navigate>):(
-        isLoading?(<h1 className='load'>Loading...</h1>):
+        isLoading?(
+            <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+            <ThreeDots 
+                height="80" 
+                width="80" 
+                radius="9"
+                color="white" 
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+                />
+                </div>):
        ( <div id='signin'>
         <form id='un-form' onSubmit={handleSubmit}>
         {

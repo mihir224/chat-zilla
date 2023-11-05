@@ -32,7 +32,7 @@
 #chat-div{
     background-color: white;
     width: 100%;
-    max-height: calc(100vh - 170px);
+    max-height: calc(100vh - 175px);
     color:white;
     overflow-y: scroll;
     z-index: 2;
@@ -184,7 +184,7 @@
 #chat-form>button:hover{
     opacity: 1;
 }
-@media screen and (max-width:400px) {
+@media screen and (max-width:700px) {
     #chat-container{
         flex:1;
         flex-direction: column;
