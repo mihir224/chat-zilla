@@ -78,10 +78,11 @@ export const removeUser=async(req,res,next)=>{
 //show random list of rooms
 export const showRandom=async(req,res,next)=>{
     try{
-        const rooms=await Room.aggregate([]);
+        const rooms=await Room.find({});
         res.status(200).json(rooms);
     }
     catch(err){
+        res.status(500).json(err);
         console.log(err);
     }
 }
