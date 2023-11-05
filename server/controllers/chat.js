@@ -7,7 +7,7 @@ export const updateChat=async (req,res,next)=>{
     try{
         const updatedRoom=await Room.findByIdAndUpdate(req.params.id,{
             $addToSet:{messages:message}
-        });
+        },{new:true});
         res.status(200).json(updatedRoom);
     }catch(err){
         console.log(err);

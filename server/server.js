@@ -66,7 +66,8 @@ io.on("connection",(socket)=>{
     socket.on("joined",({userName,room})=>{
         setUserName({userName:userName,room:room});
         socket.join(room);
-        socket.broadcast.to(room).emit("generated",`${userName} joined the chat`)
+        console.log(userName+' joined')
+        io.to(room).emit("generated",`${userName} joined the chat`)
     })
     socket.on("chat",(payload)=>{
         console.log("payload is: ",payload);
