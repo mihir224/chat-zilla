@@ -109,7 +109,10 @@
     display: inline-block;
     padding: 2px 7px;
     border-radius: 7px;
-    font-size: 14px;
+    font-size: 15px;
+    animation-name:display;
+    animation-duration: 0.1s;
+    animation-iteration-count: 1;
 }
 .un{
     color: rgba(255, 255, 255, 0.8);

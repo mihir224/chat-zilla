@@ -6,7 +6,7 @@ import {Navigate} from 'react-router-dom';
 import axios from 'axios';
 import '../styles/SignIn.css'
 
-function Room(){
+function CreateRoom(){
     const dispatch=useDispatch();
     const [roomname,setRoomname]=useState("");
     const currentUser=useSelector(state=>state.user.currentUser);
@@ -52,4 +52,4 @@ function Room(){
     ):(<Navigate to='/signin' replace={true}></Navigate>)
 }
 
-export default Room;
+export default CreateRoom;
