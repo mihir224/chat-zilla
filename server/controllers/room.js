@@ -5,7 +5,7 @@ export const getRoom=async(req,res,next)=>{
     try{
         const room=await Room.findById(req.params.id);
         if(!room){
-            return next(createError(401,'Room not found'));
+            return next(createError(404,'Room not found'));
         }
         res.status(200).json(room);
     }catch(err){
@@ -82,8 +82,7 @@ export const showRandom=async(req,res,next)=>{
         const roomsWithoutMessages=rooms.map((room)=>{ //extracting messages from rooms 
             const {messages,...others}=room._doc;
             return others;
-        })
-        console.log(roomsWithoutMessages);
+        });
         res.status(200).json(roomsWithoutMessages);
     }
     catch(err){
