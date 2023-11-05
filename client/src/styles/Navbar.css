@@ -35,7 +35,7 @@
   list-style: none;
   padding:0;
   margin:0;
-  display: block;
+  display: flex;
 }
 #nav-btns>li{
   display: inline;
@@ -50,7 +50,41 @@
   color:white;
   font-weight: 500;
 }
-  @media screen and (max-width:400px){
+#dropdown-content{
+  position: absolute;
+  top:60px;
+}
+#profile-div{
+   display: flex;
+   justify-content: center;
+}
+#profile{
+  background-color: #282c34;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-size: inherit;
+  font-family: inherit;
+  color:inherit;
+  font-weight: inherit;
+}
+#logout-btn{
+   padding:6px 10px;
+   background-color:rgb(107, 105, 105);
+   color:white;
+   border:none;
+   font-weight: 600;
+   border-radius:5px;
+   cursor: pointer;
+   font-size: 12px;
+}
+#dropdown-content>ul{
+  padding:0;
+  margin:0;
+}
+.dd-list-item{
+  list-style: none;
+}
+  @media screen and (max-width:700px){
     #navbar{
       text-align: center;
       flex-direction: column;
