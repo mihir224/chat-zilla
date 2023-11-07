@@ -49,13 +49,7 @@
 #cr-txt{
     font-weight: 500;
 }
-#cr-link{
-    text-decoration: none;
-    
-}
-#cr-link:hover{
-    text-decoration: underline;
-}
+
 @keyframes display{
     0%{
         opacity: 0;
@@ -96,8 +90,11 @@
       display: flex;
       flex-direction: column;
     }
+    #heading{
+        text-align: center;
+    }
     #room-card{
-        margin:0 10px;
+        width: 310px;
     }
     body{
         overflow-y:scroll ;

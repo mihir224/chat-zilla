@@ -63,7 +63,7 @@ function Room(){
             />
             </div>):(
         <div >
-        <h1 style={{color:'white'}}>Available Rooms</h1>
+        <h1 id='heading' style={{color:'white'}}>Available Rooms</h1>
         <div id='rooms'>
         {rooms?(rooms.map((room,index)=>
             (<div key={index} id='room-card'>
