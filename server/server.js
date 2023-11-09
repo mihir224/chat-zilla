@@ -63,15 +63,23 @@ const PORT=process.env.PORT || 5000;
 
 io.on("connection",(socket)=>{
     console.log("user connected")
+
     socket.on("joined",({userName,room})=>{
         setUserName({userName:userName,room:room});
         socket.join(room);
         console.log(userName+' joined')
         io.to(room).emit("generated",`${userName} joined the chat`)
     })
+
     socket.on("chat",(payload)=>{
         console.log("payload is: ",payload);
         io.to(currentUser.room).emit("chat",payload);
+    });
+
+    socket.on("disconnect",(reason)=>{
+        io.to(currentUser.room).emit("leave",`${currentUser.userName} left the chat`);
+        console.log(`${currentUser.userName} disconnected`);
+        setUserName({userName:"",room:""});
     })
 });
 

@@ -35,6 +35,7 @@ function Chat() {
       })();
     });
   },[room_id])
+
   useEffect(() => {
     socket.on("chat", (payload) => { 
       (async()=>{
@@ -50,6 +51,7 @@ function Chat() {
       })();   
     });
   },[]); 
+
   useEffect(()=>{
     socket.emit("joined",{userName:currentUser.name,room:room_id});
     (async ()=>{
@@ -61,6 +63,12 @@ function Chat() {
         alert('an error occured');
       }
     })();
+  },[])
+
+  useEffect(()=>{
+    socket.on("leave",(payload)=>{
+      alert(payload);
+    })
   },[])
   
   useEffect(()=>{
