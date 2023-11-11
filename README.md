@@ -15,6 +15,8 @@ ChatZilla is a chat application powered by Socket.IO, designed to provide real-t
 - Implemented signin/signup functionality
 - Implemented chat storage
 - Added a rooms page and join room functionality
+- Configured disconnect event
+- Added clear chat and leave chat functionality
 
 
 ***This project has limited functionality as of now (entry level functionality for socket.io) but I do plan to add more functionality like admin roles and PWA compatibility***
