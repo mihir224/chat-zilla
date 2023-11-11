@@ -5,11 +5,13 @@ import {useState,useEffect,useRef} from  'react';
 import {io} from 'socket.io-client';
 import moment from 'moment';
 import SendIcon from '@mui/icons-material/Send';
+import CallIcon from '@mui/icons-material/Call';
+import VideocamIcon from '@mui/icons-material/Videocam';
 import {Navigate,useLocation} from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux';
 import Sidebar from './Sidebar';
 import axios from 'axios';
-import {setRoom} from '../redux/roomSlice';
+import {setRoom,updateMessage} from '../redux/roomSlice';
 
 function Chat() {
   const server=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com':'http://localhost:5000';
@@ -17,53 +19,51 @@ function Chat() {
   const dispatch=useDispatch();
   const room_id=useLocation().pathname.split('/')[2];
   const currentUser=useSelector((state)=>state.user.currentUser);
+  const open=useSelector((state)=>state.user.open);
   const currentRoom=useSelector((state)=>state.room.currentRoom);
   const [message,setMessage]=useState("");
   const chatRef=useRef(null);
+
   useEffect(()=>{
-    console.log('generated called'); 
+    (async()=>{
+      try{
+        const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
+        const res=await axios.get(`${url}/room/${room_id}`,{withCredentials:true});
+        dispatch(setRoom(res.data));
+      }catch(err){
+        console.log('something went wrong. please try again later');
+      }
+    })();
+  },[]);
+
+  useEffect(()=>{
     socket.on("generated",(payload)=>{
-      (async ()=>{
-        try{
-          const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
-          const res=await axios.put(`${url}/chat/${room_id}`,{content:payload,isUser:false},{withCredentials:true});
-          dispatch(setRoom(res.data));
-        }catch(err){
-          console.log(err); 
-          alert('an error occured. check the console and try again.')
-        }
-      })();
+      dispatch(updateMessage({userId:currentUser?.userId,content:payload.content,time:payload.time,isUser:false})); 
     });
-  },[room_id])
+  },[])
 
   useEffect(() => {
     socket.on("chat", (payload) => { 
-      (async()=>{
-        try{
-          const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
-          const res=await axios.put(`${url}/chat/${room_id}`,{sender:payload.userName,content:payload.message,time:payload.time},{withCredentials:true});
-          dispatch(setRoom(res.data));
-        }
-        catch(err){
-          console.log(err);
-          alert('an error occured. check console and try again.')
-        }
-      })();   
+      console.log(payload)
+      dispatch(updateMessage({userId:payload.userId,content:payload.message,sender:payload.userName,time:payload.time,isUser:true})); 
     });
-  },[]); 
+  }); 
 
   useEffect(()=>{
-    socket.emit("joined",{userName:currentUser.name,room:room_id});
+    socket.emit("joined",{userName:currentUser.name,room:room_id,time:moment().format('h:mm  a')});
     (async ()=>{
       try{
         const url=process.env.NODE_ENV==="production"?"https://chat-zilla-backend.onrender.com/api":"http://localhost:5000/api";
         await axios.put(`${url}/room/addUser/${room_id}`,{},{withCredentials:true});
         await axios.put(`${url}/user/addRoom/${room_id}`,{},{withCredentials:true}); 
+        const res=await axios.put(`${url}/chat/${room_id}`,{content:`${currentUser.name} has joined the chat`,isUser:false},{withCredentials:true})
+        dispatch(setRoom(res.data));
       }catch(err){
-        alert('an error occured');
+        alert('an error occurred');
+        console.log(err);
       }
     })();
-  },[])
+  },[room_id])
 
   useEffect(()=>{
     socket.on("leave",(payload)=>{
@@ -72,26 +72,63 @@ function Chat() {
   },[])
   
   useEffect(()=>{
-    if(currentRoom?.messages?.length!==0){
+    if(currentRoom?.messages?.length!==0&&chatRef.current){
       chatRef.current.scrollTop=chatRef.current.scrollHeight;
     }
-  },[currentRoom])
+  },[currentRoom]);
   
-  const handleSubmit=(e)=>{
+  const handleSubmit=async (e)=>{
     e.preventDefault();
     if(message.length===0){
       alert('message is empty');
       return;
     }
-    socket.emit("chat",{message:message,userName:currentUser.name,time:moment().format('h:mm  a')}); //send payload to socket-server through chat event
+    var time=moment().format('h:mm  a');
+    socket.emit("chat",{userId:currentUser?._id,message:message,userName:currentUser?.name,time:time}); //send payload to socket-server through chat event
+    try{
+      const url=process.env.NODE_ENV==="production"?"https://chat-zilla-backend.onrender.com/api":"http://localhost:5000/api";
+      const res=await axios.put(`${url}/chat/${room_id}`,{sender:currentUser.name,content:message,time:time},{withCredentials:true});
+      dispatch(setRoom(res.data));
+    }catch(err){
+      alert('something went wrong. try again!');
+    }
     setMessage("");
   }
-  return !currentUser?(<Navigate to="/signin" replace={true} />):(
+
+  const clearChat=async ()=>{
+    try{
+      const url=process.env.NODE_ENV==="production"?"https://chat-zilla-backend.onrender.com/api":"http://localhost:5000/api";
+      const res=await axios.put(`${url}/chat/delete/${room_id}`,{},{withCredentials:true});
+      dispatch(setRoom(res.data));
+    }catch(err){
+      alert('something went wrong. try again.');
+    }
+  }
+  
+  const leaveRoom=async()=>{
+    try{
+      const url=process.env.NODE_ENV==="production"?"https://chat-zilla-backend.onrender.com/api":"http://localhost:5000/api";
+      await axios.put(`${url}/room/removeUser/${room_id}`,{},{withCredentials:true});
+      await axios.put(`${url}/user/removeRoom/${room_id}`,{},{withCredentials:true}); 
+      dispatch(setRoom(null));
+    }catch(err){
+      console.log(err);
+      alert('an error occurred. please try again')
+    }
+  }
+
+  return (!currentUser||!currentRoom)?(<Navigate to="/signin" replace={true} />):(
     <div id='chat-container'>
-    <Sidebar/>
+    {open&&<Sidebar/>}
     <div id='chat'>
      <div id='chat-header'>
       <h3>{currentRoom?.name}</h3>
+      <div id='options'>
+      <button className='option-btn' type='button'><CallIcon className='icons'/></button>
+      <button className='option-btn'><VideocamIcon className='icons'/></button>
+      <button id='clear-btn' type='button' onClick={clearChat}>Clear Chat</button>
+      <button id='exit-btn' type='button' onClick={leaveRoom}>Leave Room</button>
+      </div>
     </div>
     <div id='chat-div' ref={chatRef}>
     {currentRoom?.messages?.length===0?(<h1 id='blank-txt'>Start a conversation... <span>(currently texting as {currentUser.name})</span></h1>):
