@@ -13,9 +13,12 @@ const roomSlice=createSlice({
         setRoom:(state,action)=>{
             state.isLoading=false;
             state.currentRoom=action.payload;
+        },
+        updateMessage:(state,action)=>{
+            state.currentRoom?.messages.push(action.payload);
         }
     }
 })
 
-export const {start,setRoom}=roomSlice.actions;
+export const {start,setRoom,updateMessage}=roomSlice.actions;
 export default roomSlice.reducer;

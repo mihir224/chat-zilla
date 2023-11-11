@@ -7,7 +7,7 @@ const userSlice=createSlice({
         isLoading:false,
         err:null,
         stage:1,
-        open:false
+        open:true
     },
     reducers:{
         loginStart:(state)=>{

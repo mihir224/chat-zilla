@@ -16,18 +16,67 @@
     background-color: white;
     align-items: center;
     border: none;
-    
 }
 #chat-header{
     width: 100%;
-    text-align: center;
     border:none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#options{
+    margin:0 30px;
+    display: flex;
+    gap:20px;
+    align-items:center ;
+}
+.option-btn{
+    background-color: inherit;
+    border: none;
+    display: flex;
+    transition-duration: 0.2s;
+}
+.option-btn:hover{
+    opacity: 0.8;
+
+}
+.icons{
+    color:#282c34;
+}
+
+#clear-btn{
+    justify-self: flex-end;
+    background-color: inherit;
+    border:1px solid red;
+    color:red;
+    font-family: inherit;
+    font-size: inherit;
+    transition-duration: 0.2s;
+    border-radius: 5px;
+}
+#clear-btn:hover{
+    color:white;
+    background-color: red;
 }
 #chat-header>h3{
     padding:12px 0;
     color:#282c34;
     font-size: 22px;
-    margin:0;
+    font-weight: 600;
+    margin:0 30px;
+}
+#exit-btn{
+    font-family: inherit;
+    font-size: inherit;
+    background-color: inherit;
+    color: inherit;
+    border:1px solid #282c34;
+    border-radius:5px;
+    transition-duration: .2s;
+}
+#exit-btn:hover{
+    color:white;
+    background-color:#282c34 ;
 }
 #chat-div{
     background-color: white;

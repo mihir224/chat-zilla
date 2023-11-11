@@ -21,6 +21,7 @@
 .sb-list>li{
     padding:10px 0;
     opacity: 0.8;
+    cursor:pointer
 }
 .sb-list>li:hover{
     opacity: 1;

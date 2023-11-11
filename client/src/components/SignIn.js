@@ -18,10 +18,10 @@ function SignIn(){
     const passwordRef=useRef(null);
     useEffect(()=>{
         if(stage===1){
-            usernameRef.current.focus();
+            usernameRef.current?.focus();
         }
         else if(stage===2){
-            passwordRef.current.focus();
+            passwordRef.current?.focus();
         }
     },[stage]);
     const handleSubmit=(e)=>{
