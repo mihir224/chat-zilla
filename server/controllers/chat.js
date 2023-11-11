@@ -13,3 +13,15 @@ export const updateChat=async (req,res,next)=>{
         console.log(err);
     }
 }
+
+export const deleteChat=async (req,res,next)=>{
+    try{
+        const updatedRoom=await Room.findByIdAndUpdate(req.params.id,{
+            $set:{messages:[]}
+        },{new:true});
+        console.log('chat deleted successfully')
+        res.status(200).json(updatedRoom);
+    }catch(err){
+        console.log(err);
+    }
+}

@@ -10,7 +10,7 @@ router.post('/create',authenticate,createRoom); //create new room
 router.put('/update/:id',authenticate,updateRoom); //update room details
 router.delete('/delete/:id',authenticate,deleteRoom);
 router.put('/addUser/:id',authenticate,addUser); //add user to room  
-router.put('/leave/:id',authenticate,removeUser)
+router.put('/removeUser/:id',authenticate,removeUser)
 router.get('/get/random',showRandom); //will show a random list of current rooms
 router.get('/get/search',search); //search rooms
 

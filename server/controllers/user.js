@@ -52,3 +52,16 @@ export const addRoom=async(req,res,next)=>{
         console.log(err);
     }
 }
+
+//remove room from user rooms list
+export const removeRoom=async(req,res,next)=>{
+    try{
+        const updatedUser=await User.findByIdAndUpdate(req.data.id,{
+            $pull:{rooms:req.params.id}
+        },{new:true});
+        res.status(200).json(updatedUser);
+    }
+    catch(err){
+        console.log(err);
+    }
+}

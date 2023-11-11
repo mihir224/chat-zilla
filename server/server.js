@@ -64,11 +64,11 @@ const PORT=process.env.PORT || 5000;
 io.on("connection",(socket)=>{
     console.log("user connected")
 
-    socket.on("joined",({userName,room})=>{
+    socket.on("joined",({userName,room,time})=>{
         setUserName({userName:userName,room:room});
         socket.join(room);
         console.log(userName+' joined')
-        io.to(room).emit("generated",`${userName} joined the chat`)
+        socket.broadcast.to(room).emit("generated",{content:`${userName} joined the chat`,time:time})
     })
 
     socket.on("chat",(payload)=>{
@@ -77,7 +77,7 @@ io.on("connection",(socket)=>{
     });
 
     socket.on("disconnect",(reason)=>{
-        io.to(currentUser.room).emit("leave",`${currentUser.userName} left the chat`);
+        socket.broadcast.to(currentUser.room).emit("leave",`${currentUser.userName} left the chat`);
         console.log(`${currentUser.userName} disconnected`);
         setUserName({userName:"",room:""});
     })
