@@ -36,7 +36,9 @@
     background-color: white;
     color:#282c34
 }
-
+.link{
+    text-decoration: none;
+}
 @keyframes display{
     0%{
         opacity: 0;

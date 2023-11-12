@@ -13,8 +13,6 @@
     font-weight: 400;
 }
 #un-submit{
-    background-color:#282c34;
-    color:white;
     background-color: white;
     color:#282c34;
     font-weight: 500;
@@ -25,6 +23,9 @@
     font-family: 'Montserrat', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell';
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap:5px;
 }
 #un-form{
     display: flex;

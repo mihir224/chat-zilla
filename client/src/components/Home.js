@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import '../styles/Home.css';
+import Footer from './Footer';
 import {Link} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {setRoom} from '../redux/roomSlice';
@@ -24,13 +25,14 @@ function Home(){
         <h2>The all-in-one chat app for gamers, streamers, and friends.</h2>
         <h3>Stay connected to your loved ones with <span>ChatZilla</span>!</h3>
         <div id='home-btns'>
-        <Link to='/room'>
+        <Link to='/room' replace={true} className='link'>
             <button id='un-submit' type='submit'>Join a room</button>
         </Link>
-        <Link to='/room/create' replace={true}>
+        <Link to='/room/create' replace={true} className='link'>
             <button id='un-submit' type='submit'>Create a room</button>
         </Link>
         </div>
+        <Footer/>
         </div>
     )
 }

@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 #logo-ham{
   display: flex;
@@ -61,12 +62,14 @@
 }
 #profile{
   background-color: #282c34;
-  border: 1px solid white;
-  border-radius: 5px;
-  font-size: inherit;
+  border: 2px solid white;
+  border-radius: 20px;
+  font-size: 20px;
   font-family: inherit;
   color:inherit;
-  font-weight: inherit;
+  height:40px;
+  width: 40px;
+  font-weight: 600;
 }
 #logout-btn{
    padding:6px 10px;
@@ -92,5 +95,8 @@
     }
     #nav-btns{
       display: flex;
+    }
+    #dropdown-content{
+      top:130px
     }
   }

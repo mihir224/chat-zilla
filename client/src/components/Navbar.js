@@ -13,7 +13,13 @@ function Navbar(){
     const [logoutOpen,setLogoutOpen]=useState(false);
     const currentRoom=useSelector(state=>state.room.currentRoom);
     const stage=useSelector(state=>state.user.stage);
+    const customStyling={
+      background:`url(${currentUser?.imgUrl}) no-repeat`,
+      backgroundSize:"60px",
+      backgroundPosition:"-10px 0px"
+  }
     const handleLogout=()=>{
+      setLogoutOpen(false);
       dispatch(logout());
     }
     useEffect(()=>{
@@ -33,7 +39,7 @@ function Navbar(){
           <li><Link to='/contact'><button className='nav-btn' type='button'>Contact us</button></Link></li>
           <li>{currentUser?(
             <div id='profile-div'>
-            <button id='profile' type='button' onClick={()=>setLogoutOpen(!logoutOpen)}>{currentUser.name}</button>
+            <button id='profile' type='button' style={currentUser.imgUrl&&customStyling} onClick={()=>setLogoutOpen(!logoutOpen)}>{currentUser.imgUrl?'':currentUser.name[0]}</button>
             <div style={{display:logoutOpen?'block':'none'}} id="dropdown-content" >
                 <ul>
                   <li className="dd-list-item"><button id="logout-btn" onClick={handleLogout}>LOG OUT</button></li>
@@ -42,7 +48,7 @@ function Navbar(){
             </div>
             ):
           (
-            <Link to='/signin'><button id='un-submit' type='button'>Sign In</button></Link>
+            <Link to='/signin' className='link'><button id='un-submit' type='button'>Sign In</button></Link>
           )
           }</li>
         </ul>
