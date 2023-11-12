@@ -28,8 +28,11 @@
 }
 @media screen and (max-width:700px){
     #side-bar{
-        align-self: center;
+        align-items: center;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        flex-direction: column;
+        align-content: center;
+        align-self: center;
     }
 }

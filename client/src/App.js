@@ -4,6 +4,8 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import About from './components/About';
+import Contact from './components/Contact';
 import CreateRoom from './components/CreateRoom';
 import Room from './components/Room';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -24,6 +26,8 @@ function App() {
           <Route index element={<Room/>} />
           <Route path='create' element={<CreateRoom/>} />
         </Route>
+        <Route path='about' element={<About/>}/>
+        <Route path='contact' element={<Contact/>}></Route>
         <Route path='signin' element={<SignIn/>}/>
         <Route path='signup' element={<SignUp/>}/>
       </Route>
