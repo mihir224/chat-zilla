@@ -3,8 +3,11 @@ import '../styles/SignIn.css';
 import {Navigate} from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux';
 import {loginStart,loginFail, setUser, setStage} from '../redux/userSlice';
+import {signInWithPopup} from '@firebase/auth';
+import {auth,provider} from '../firebase'
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner'
+import GoogleIcon from '@mui/icons-material/Google';
 
 function SignUp(){
     const dispatch=useDispatch();
@@ -51,6 +54,15 @@ function SignUp(){
             }
         }
     }
+    const handleGoogleLogin=async(e)=>{
+        e.preventDefault();
+        await signInWithPopup(auth,provider).then((result)=>{
+            const url=process.env.NODE_ENV==="production"?"https://chat-zilla-backend.onrender.com/api":"http://localhost:5000/api";
+            axios.post(`${url}/auth/google`,{name:result.user.displayName,email:result.user.email,imgUrl:result.user.photoURL},{withCredentials:true}).then((res)=>{
+                dispatch(setUser(res.data));
+            });
+        })
+    }
     return currentUser?(<Navigate to='/' replace={true}></Navigate>):(
         isLoading?(
             <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
@@ -91,6 +103,7 @@ function SignUp(){
         {password&&(stage===3)&&
             <button id='un-submit' type='submit' onClick={handleSignup}>Sign up</button>
         }
+        <button id='un-submit' style={{marginTop:'15px'}} type='submit' onClick={handleGoogleLogin}><GoogleIcon/></button>
         </form>
         </div>)
     )

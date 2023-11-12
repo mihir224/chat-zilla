@@ -3,8 +3,12 @@ import '../styles/SignIn.css';
 import {Link,Navigate} from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux';
 import {loginStart,loginFail, setUser, setStage} from '../redux/userSlice';
+import {signInWithPopup} from '@firebase/auth';
+import {auth,provider} from '../firebase'
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
+import GoogleIcon from '@mui/icons-material/Google';
+
 
 function SignIn(){
     const dispatch=useDispatch();
@@ -47,6 +51,15 @@ function SignIn(){
             }
         }
     }
+    const handleGoogleLogin=async(e)=>{
+        e.preventDefault();
+        await signInWithPopup(auth,provider).then((result)=>{
+            const url=process.env.NODE_ENV==="production"?"https://chat-zilla-backend.onrender.com/api":"http://localhost:5000/api";
+            axios.post(`${url}/auth/google`,{name:result.user.displayName,email:result.user.email,imgUrl:result.user.photoURL},{withCredentials:true}).then((res)=>{
+                dispatch(setUser(res.data));
+            });
+        })
+    }
     return currentUser?(<Navigate to='/' replace={true}></Navigate>):(
         isLoading?(
             <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
@@ -82,6 +95,7 @@ function SignIn(){
         }
         </form>
         <span>don't have an account? sign up <Link to='/signup' style={{color:'white'}} replace={true}>here</Link></span>
+        <button id='un-submit' style={{marginTop:'15px'}} type='submit' onClick={handleGoogleLogin}><GoogleIcon/></button>
         </div>)
     )
 }
