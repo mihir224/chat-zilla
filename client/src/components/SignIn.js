@@ -24,6 +24,9 @@ function SignIn(){
             passwordRef.current?.focus();
         }
     },[stage]);
+    useEffect(()=>{
+        dispatch(setStage(1));
+    },[])
     const handleSubmit=(e)=>{
         e.preventDefault();
         dispatch(setStage());
@@ -70,7 +73,7 @@ function SignIn(){
             <button id='un-submit' type='submit'>Enter Password</button>
         }
         {
-            stage===2&&<input ref={passwordRef} className='ip' type='text' placeholder='Enter password...' value={password} autoComplete='off' onChange={(e)=>{
+            stage===2&&<input ref={passwordRef} className='ip' type='password' placeholder='Enter password...' value={password} autoComplete='off' onChange={(e)=>{
                 setPassword(e.target.value);
             }} />
         }

@@ -16,6 +16,9 @@ function Navbar(){
     const handleLogout=()=>{
       dispatch(logout());
     }
+    useEffect(()=>{
+      setLogoutOpen(false);
+    },[])
     return (
         <div id='navbar'>
         <div id='logo-ham'>
@@ -26,8 +29,8 @@ function Navbar(){
         </div>
         <ul id='nav-btns'>
           <li><Link to='/' replace={true}><button className='nav-btn' type='button'>Home</button></Link></li>
-          <li><button className='nav-btn' type='button'>About</button></li>
-          <li><button className='nav-btn' type='button'>Contact us</button></li>
+          <li><Link to='/about' replace={true}><button className='nav-btn' type='button'>About</button></Link></li>
+          <li><Link to='/contact'><button className='nav-btn' type='button'>Contact us</button></Link></li>
           <li>{currentUser?(
             <div id='profile-div'>
             <button id='profile' type='button' onClick={()=>setLogoutOpen(!logoutOpen)}>{currentUser.name}</button>

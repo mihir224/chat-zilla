@@ -76,7 +76,7 @@ function SignUp(){
             <button id='un-submit' type='submit'>Enter Email</button>
         }
         {
-            stage===2&&<input ref={emailRef} className='ip' type='text' placeholder='Enter email...' value={email} autoComplete='off' onChange={(e)=>{
+            stage===2&&<input ref={emailRef} className='ip' type='email' placeholder='Enter email...' value={email} autoComplete='off' onChange={(e)=>{
             setEmail(e.target.value);
         }}/>   
         }
@@ -84,7 +84,7 @@ function SignUp(){
             <button id='un-submit' type='submit'>Enter Password</button>
         }
         {
-            stage===3&&<input ref={passwordRef} className='ip' type='text' placeholder='Enter password...' value={password} autoComplete='off' onChange={(e)=>{
+            stage===3&&<input ref={passwordRef} className='ip' type='password' placeholder='Enter password...' value={password} autoComplete='off' onChange={(e)=>{
                 setPassword(e.target.value);
             }} />
         }

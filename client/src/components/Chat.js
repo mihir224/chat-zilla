@@ -126,8 +126,8 @@ function Chat() {
       <div id='options'>
       <button className='option-btn' type='button'><CallIcon className='icons'/></button>
       <button className='option-btn'><VideocamIcon className='icons'/></button>
-      <button id='clear-btn' type='button' onClick={clearChat}>Clear Chat</button>
-      <button id='exit-btn' type='button' onClick={leaveRoom}>Leave Room</button>
+      <button id='clear-btn' className='header-btn' type='button' onClick={clearChat}>Clear Chat</button>
+      <button id='exit-btn' className='header-btn' type='button' onClick={leaveRoom}>Leave Room</button>
       </div>
     </div>
     <div id='chat-div' ref={chatRef}>
