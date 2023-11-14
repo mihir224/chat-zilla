@@ -11,7 +11,7 @@ export const signup=async(req,res,next)=>{
         const user=await newUser.save();
         const token=jwt.sign({id:user._id},process.env.JWT);
         const {password,...others}=user._doc;
-        res.cookie('access_token',token,{httpOnly:true}).status(200).json(others);
+        res.cookie('access_token',token,{maxAge:24*60*60*1000,httpOnly:true,sameSite:'none',secure:true}).status(200).json(user._doc);
     }
     catch(err){
         console.log(err);
@@ -29,7 +29,7 @@ export const signin=async(req,res,next)=>{
         }
         const token=jwt.sign({id:user._id},process.env.JWT);
         const {password,...others}=user._doc;
-        res.cookie('access_token',token,{httpOnly:true}).status(200).json(others);
+        res.cookie('access_token',token,{maxAge:24*60*60*1000,httpOnly:true,sameSite:'none',secure:true}).status(200).json(user._doc);
     }catch(err){
         console.log(err);
     }
@@ -40,7 +40,7 @@ export const googleAuth=async(req,res,next)=>{
         const user=await User.findOne({email:req.body.email});
         if(user){
             const token=jwt.sign({id:user._id},process.env.JWT);
-            res.cookie('access_token',token,{httpOnly:true}).status(200).json(user._doc);
+            res.cookie('access_token',token,{maxAge:24*60*60*1000,httpOnly:true,sameSite:'none',secure:true}).status(200).json(user._doc);
         }
         else{
             const newUser=new User({
@@ -49,8 +49,16 @@ export const googleAuth=async(req,res,next)=>{
             });
             const user=await newUser.save();
             const token=jwt.sign({id:user._id},process.env.JWT)
-            res.cookie('access_token',token,{httpOnly:true}).status(200).json(user._doc);
+            res.cookie('access_token',token,{maxAge:24*60*60*1000,httpOnly:true,sameSite:'none',secure:true}).status(200).json(user._doc);
         }
+    }catch(err){
+        console.log(err);
+    }
+}
+
+export const logout=async (req,res,next)=>{
+    try{
+        res.clearCookie('access_token',{sameSite:'none',secure:true}).status(200).json('logout successful')
     }catch(err){
         console.log(err);
     }

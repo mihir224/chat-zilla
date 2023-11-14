@@ -5,6 +5,7 @@ import {setStage,setOpen,logout} from '../redux/userSlice';
 import {setRoom} from '../redux/roomSlice';
 import '../styles/Navbar.css'
 import MenuIcon from '@mui/icons-material/Menu';
+import axios from 'axios';
 
 function Navbar(){
     const dispatch=useDispatch();
@@ -18,9 +19,15 @@ function Navbar(){
       backgroundSize:"60px",
       backgroundPosition:"-10px 0px"
   }
-    const handleLogout=()=>{
+    const handleLogout=async()=>{
       setLogoutOpen(false);
-      dispatch(logout());
+      try{
+        const url=process.env.NODE_ENV==="production"?"https://chat-zilla-backend.onrender.com/api":"http://localhost:5000/api";
+        await axios.post(`${url}/auth/logout`,{},{withCredentials:true});
+        dispatch(logout());
+      }catch(err){
+        console.log(err);
+      }
     }
     useEffect(()=>{
       setLogoutOpen(false);
