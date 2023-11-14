@@ -21,5 +21,3 @@ ChatZilla is a chat application powered by Socket.IO, designed to provide real-t
 
 
 ***This project has limited functionality as of now (entry level functionality for socket.io) but I do plan to add more functionality like admin roles and PWA compatibility***
-
-***Note: In production, the JWT isn't visible at the client side due to browser security and the cookie being httpOnly. For this reason, even though user is authenticated by the server upon signin, due to absence of JWT, the user cannot perform any of the CUD operations in production. I'm currently working towards fixing this. You can still, setup the project locally and it will work fine.***
