@@ -22,7 +22,8 @@ function CreateRoom(){
     const handleClick=async()=>{
         dispatch(start());
         try{
-            const res=await axios.post('http://localhost:5000/api/room/create',{name:roomname},{withCredentials:true});
+            const url=process.env.NODE_ENV==='production'?'https://chat-zilla-backend.onrender.com/api':'http://localhost:5000/api';
+            const res=await axios.post(`${url}/room/create`,{name:roomname},{withCredentials:true});
             dispatch(setRoom(res.data));
             console.log(res.data);
         }catch(err){
